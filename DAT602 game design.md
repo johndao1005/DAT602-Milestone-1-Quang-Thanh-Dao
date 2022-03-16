@@ -85,6 +85,10 @@ Players will have their character details updated after each move such as `locat
 
 ### Main Menu
 
+add description
+
+navigation on picture
+
 ![image-20220222104939946](.\src\image-20220222104939946.png)
 
 ### User details
@@ -100,10 +104,6 @@ The toggle to allow user to become Admin only available if the current user is A
 ### Game
 
 ![image-20220222115459417](.\src\image-20220222115459417.png)
-
-Win the game
-
-![image-20220222115738541](.\src\image-20220222115738541.png)
 
 ## Logical entity relationship diagram
 

@@ -8,7 +8,7 @@ begin
 	drop table if exists `Type`,  `User`, `Map`, `Character`, `Chat_log`, `Session`;
  
     create table `User` (
-    `userID` int not null primary key,
+    `userID` int not null primary key auto_increment,
     `email` varchar(255) not null,
     `username` varchar(255),
     `password` varchar(255),
@@ -43,7 +43,7 @@ begin
     );
 
 	create table `Session` (
-    `sessionID` int not null primary key ,
+    `sessionID` int not null primary key,
     `characterID_1` int not null,
     `characterID_2` int not null,
     `time_start` datetime not null,
@@ -66,18 +66,18 @@ drop procedure if exists INSERT_DATA ;
 DELIMITER //
 create procedure INSERT_DATA()
 begin
-	insert into `Type`
-    value (1,'grass','something to step on');
-    insert into `User`
-    value (1,'tim@tim.tim','just tim','password1',true,3,false,0);
-    insert into `Chat_log`
-    value (1,'what a day',16/03/2013, 1);
+	insert into `Type`(`tile_name`,`description`)
+    value ('grass','something to step on');
+    insert into `User`(`email`,`username`,`password`,`login_check`,`login_attempt`,`admin_check`,`highest_score`)
+    value ('tim@tim.tim','just tim','password1',true,3,false,0);
+    insert into `Chat_log`(`content`,`timestamp`,`userID`)
+    value ('what a day',16/03/2013, 1);
     insert into `Map`
     value (1,1,1,1);
     insert into `Character`
     value (1,12,true,1,1),(2,12,true,1,1);
     insert into `Session`
-    value (1,1,2,"1000-01-01 00:00:00");
+    value (1,1,2,"1000-01-01 00:00:00");	
 end //
     DELIMITER ;
     call INSERT_DATA();
@@ -119,8 +119,8 @@ begin
     select * from `Map`;
     select * from `Type`;
 end //
-    DELIMITER ;
-    -- call SELECT_DATA();
+DELIMITER ;
+call SELECT_DATA();
     
 drop procedure if exists DELETE_DATA;
 
@@ -134,6 +134,6 @@ begin
 	delete from `Character` where `characterID`=1;
 	delete from `Type` where `typeID`=1;
 end //
-    DELIMITER ;
-    call DELETE_DATA();
+DELIMITER ;
+call DELETE_DATA();
    
