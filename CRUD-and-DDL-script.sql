@@ -29,7 +29,7 @@ begin
       `row` int not null,
       `column` int not null,
       `typeID` int not null,
-      foreign key (`typeID`) references `Type`(`typeID`)
+      foreign key (`typeID`) references `Type`(`typeID`) on delete cascade
     );
     
     create table `Character` (
@@ -38,7 +38,7 @@ begin
     `power_up` bool default false,
     `userID` int,
     `locationID` int,
-    foreign key (`userID`) references `User`(`userID`),
+    foreign key (`userID`) references `User`(`userID`)  on delete cascade,
     foreign key (`locationID`) references `Map`(`locationID`)
     );
 
@@ -120,20 +120,19 @@ begin
     select * from `Type`;
 end //
     DELIMITER ;
-    call SELECT_DATA();
+    -- call SELECT_DATA();
     
 drop procedure if exists DELETE_DATA;
 
 DELIMITER //
 create procedure DELETE_DATA()
 begin
+	delete from `Chat_log` where `messageID`=1;
 	delete from `Session` where `sessionID`=1;
-    delete from `Character` where `characterID`=1;
-    delete from `Chat_log` where `messageID`=1;
-	-- delete from `Type` where `typeID`=1;
---     delete from `Map` where `locationID`=1;
---     delete from `User` where `userID`=1;
-
+	delete from `User` where `userID`=1;
+	delete from `Map` where `locationID`=1;
+	delete from `Character` where `characterID`=1;
+	delete from `Type` where `typeID`=1;
 end //
     DELIMITER ;
     call DELETE_DATA();

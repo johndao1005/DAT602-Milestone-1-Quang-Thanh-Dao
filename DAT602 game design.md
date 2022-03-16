@@ -6,36 +6,23 @@ The game application (Foodie) follows the survival game with users who can compe
 
 ### Register
 
-![image-20220314140348352](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220314140348352.png
-
-Users will need to create an account to save their information for high scores and display names. The casual player will also be allowed to join without registering but they will receive random generate names ie Player12345, no password, and also a timer before their account was removed.
+Users will need to create an account to save their information for high scores and display names. The casual player will also be allowed to join without having a password but they will receive notification everytime they log in.
 
 ### Login
 
-Users can access their saved data if the correct username and password is provided
+Users can access their saved data with the correct username and password is provided or if the account dont have 
 
 ### Edit
 
-Users can choose to edit their current name and details.
+Users can choose to edit their current name or other information such as password, email(as long as it is not taken)
 
-### User table
-
-| default value    | Column           | Datatype    |
-| ---------------- | ---------------- | ----------- |
-| 5                | loginAttempt     | Number      |
-| true             | isLogin          | Bool        |
-| Player000000     | username         | VarChar(16) |
-| Password0        | password         | VarChar(16) |
-| email0@gmail.com | email            | VarChar(16) |
-| false            | isAdmin          | Bool        |
-| 0                | highestScore     | Number      |
-| {}               | characterDetails | JSON        |
+![image-20220316114408536](.\src\image-20220316114408536.png)
 
 ## Admin
 
 ### Access
 
-Admin also log in as normal users, when the system checks if the user has `isAdmin: true` would be presented with a dashboard of the list of games, the player as well other function to edit the system
+Admin also log in as normal users, when the system checks if the user has `isAdmin: true` would be presented with a dashboard of the list of games, players as well other function to edit the system such as delete game, delete or edit users.
 
 ## Game
 
@@ -45,7 +32,13 @@ The game will be designed in a grid of 10x10 which is filled with obstacles and 
 
 If user log out, the timer will stop while keeping the current stage status for the player, within 10s count down, if user didnt get back, they will lose the game and recieve the current points, the same goes with the winner.
 
-Player can move only 1 block using arrow keys and receive food on the block they take but not passing though the obstables. The current power up would allow this increase the number of block they can move at one time, other power up is not available at this stage. Player can move on top of food, powerup, another user but not obstacles( may allow if future power up) 
+Player can move only 1 block using arrow keys and receive food on the block but not passing though the obstables. The current power up would allow this increase the number of block they can move at one time, other power up is not available at this stage. Player can move on top of food, powerup, another user but not obstacles( may allow if future power up) 
+
+![image-20220316114201154](.\src\image-20220316114201154.png)
+
+![image-20220316114335633](.\src\image-20220316114335633.png)
+
+The typeID will determine the type of block while locationID will hold the location of the tile on the map through value of column and row.
 
 an example of a board might look like.
 
@@ -63,68 +56,62 @@ an example of a board might look like.
 
 ### Session
 
-Creating session for the player 
+Creating a session for a game that takes in the ID of both players as well as the deadline of the game will contribute to scoring calculation as well as automatically delete the game if no one finished it
 
-### Player details
+![image-20220316112528352](.\src\image-20220316112528352.png)
 
-Players will have their character details updated with each move. Character details will be reset after each game except `currentScore` and `currentScore` will be reset after 5 games.
+### Character details
 
-| Column           | Datatype | default value |
-| ---------------- | -------- | ------------- |
-| currentLocationX | Number   | 0             |
-| currentLocationY | Number   | 0             |
-| currentTime      | DateTime | 00            |
-| speed            | Number   | 0             |
-| currentScore     | Number   | 0             |
+Players will have their character details updated after each move such as `locationID` if you move to a normal tile, `power_up` if they move to tile with power up property and so on. The character is link to user with `userID`, the data will be reset after the game finished or deleted if user is deleted
 
+![image-20220316112141261](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220316112141261.png)
 
 
 ## Chat
 
- The chat will display the latest 40 messages which display the userName, time and message content. Currently, the old messages will be deleted.
+ The chat will display the latest 40 messages which display the userName, time and message content. The Chat will function as a global chat room which player can communicate with everyone.
 
-| Column    | Datatype     | value      |
-| --------- | ------------ | ---------- |
-| timeStamp | DateTime     | Date.now() |
-| message   | Varchar(255) | "Hello"    |
-| userName  | String       | player0000 |
-
-
+![image-20220316115345867](.\src\image-20220316115345867.png)
 
 ## Wireframe
 
 ### Login
 
-![image-20220222103312500](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222103312500.png)
+![image-20220222103312500](.\src\image-20220222103312500.png)
 
 ### Register
 
-![image-20220222103438982](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222103438982.png)
+![image-20220222103438982](.\src\image-20220222103438982.png)
 
 ### Main Menu
 
-![image-20220222104939946](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222104939946.png)
+![image-20220222104939946](.\src\image-20220222104939946.png)
 
 ### User details
 
-![image-20220222114017261](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222114017261.png)
+![image-20220222114017261](.\src\image-20220222114017261.png)
 
 The toggle to allow user to become Admin only available if the current user is Admin. When admin want to change users details, the same interface will present
 
 ### Admin.
 
-![image-20220222113116586](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222113116586.png)
+![image-20220222113116586](.\src\image-20220222113116586.png)
 
 ### Game
 
-![image-20220222115459417](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222115459417.png)
+![image-20220222115459417](.\src\image-20220222115459417.png)
 
 Win the game
 
-![image-20220222115738541](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220222115738541.png)
+![image-20220222115738541](.\src\image-20220222115738541.png)
+
+## Logical entity relationship diagram
+
+Based on the game design, with user
+
+![image-20220314142111399](.\src\image-20220314142111399.png)	
+
+The CRUD table is included at the root level of the Github repo.
 
 
 
-
-
-![image-20220314142111399](C:\Users\John-Dao\AppData\Roaming\Typora\typora-user-images\image-20220314142111399.png)
